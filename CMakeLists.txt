@@ -8,7 +8,13 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 add_executable(fire
-    fire.c
+    main.cpp
+    base_pin.hpp
+    base_pin.cpp
+    candle_pin.hpp
+    candle_pin.cpp
+    crystal_pin.hpp
+    crystal_pin.cpp
 )
 
 pico_enable_stdio_usb(fire 1)
