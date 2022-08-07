@@ -2,9 +2,7 @@
 #include "hardware/pwm.h"
 #include <stdlib.h>
 
-uint     const NUM_PINS = 5;
-uint     const NUM_CANDLE_PINS = 3;
-uint     const NUM_CRYSTAL_PINS = 2;
+#define len(arr) (sizeof(arr) / sizeof(arr[0]))
 
 uint32_t const SLEEP_TIME_MS = 40;
 uint16_t const CANDLE_POWER_DELTAWINDOW = 7500;
@@ -15,10 +13,10 @@ uint16_t const FLICKER_DESCENDING_STEPSIZE = 12000;
 uint16_t const FLICKER_ASCENDING_STEPSIZE = 20000;
 uint16_t const FLICKER_RESETTING_STEPSIZE = 20000;
 
-uint16_t const PULSATE_POWER_MIN = 8500;
+uint16_t const PULSATE_POWER_MIN = 5000; //7000;
 uint16_t const PULSATE_POWER_MAX = 38000;
 uint16_t const PULSATE_DESCENDING_STEPSIZE = 1200;
-uint16_t const PULSATE_ASCENDING_STEPSIZE = 200;
+uint16_t const PULSATE_ASCENDING_STEPSIZE = 400;
 
 enum pin_state
 {
@@ -48,11 +46,11 @@ int main()
     // Freely choosable and only used in automating the `pins` initialization
     uint const pin_nums[] = {0, 6, 10, 22, 28};
     uint const candle_pin_nums[] = {0, 6, 10}; // Must be subset of pin_nums
-    uint const crystal_pin_num[] = {22, 28};   // Must be subset of pin_nums
+    uint const crystal_pin_nums[] = {22, 28};   // Must be subset of pin_nums
 
     // Declare and initialize general pin properties
-    struct pwm_pin pins[NUM_PINS];
-    for (uint i = 0; i < NUM_PINS; i++)
+    struct pwm_pin pins[len(pin_nums)];
+    for (uint i = 0; i < len(pins); i++)
     {
         gpio_set_function(pin_nums[i], GPIO_FUNC_PWM);
         pins[i].slice_num = pwm_gpio_to_slice_num(pin_nums[i]);
@@ -62,7 +60,7 @@ int main()
     }
     
     // Initialize candle pin properties
-    for (uint i = 0; i < NUM_CANDLE_PINS; i++)
+    for (uint i = 0; i < len(candle_pin_nums); i++)
     {
         pins[i].power = 30000; // initial value
         pins[i].flicker_init_power = 0; // arbitrary
@@ -71,18 +69,18 @@ int main()
     }
 
     // Initialize crystal pin properties
-    for (uint i = NUM_CANDLE_PINS; i < NUM_CANDLE_PINS + NUM_CRYSTAL_PINS; i++)
+    for (uint i = len(candle_pin_nums); i < len(candle_pin_nums) + len(crystal_pin_nums); i++)
     {
         pins[i].power = rand() % 65535;
         pins[i].flicker_init_power = 0; // unused
-        pins[i].pulsate_speed_delta = (rand() % 700) - 350; // unchanging
+        pins[i].pulsate_speed_delta = 0; // (rand() % 700) - 350; // unchanging
         pins[i].state = (rand() & 1) ? PULSATE_ASCENDING : PULSATE_DESCENDING;
     }
 
     // Main program loop
     while (true)
     {
-        for (uint i = 0; i < NUM_PINS; i++)
+        for (uint i = 0; i < len(pins); i++)
         {
             struct pwm_pin *const pin = &pins[i];
             int const randr = rand();
