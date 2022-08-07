@@ -1,7 +1,6 @@
 #ifndef CANDLE_PIN_H
 #define CANDLE_PIN_H
 
-#include "pico/stdlib.h"
 #include "base_pin.hpp"
 
 uint16_t const CANDLE_POWER_DELTAWINDOW = 7500;

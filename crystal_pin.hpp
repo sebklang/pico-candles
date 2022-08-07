@@ -1,7 +1,6 @@
 #ifndef CRYSTAL_PIN_H
 #define CRYSTAL_PIN_H
 
-#include "pico/stdlib.h"
 #include "base_pin.hpp"
 
 uint16_t const PULSATE_POWER_MIN = 5000;
