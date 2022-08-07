@@ -5,8 +5,6 @@
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
 
-uint32_t const SLEEP_TIME_MS = 40;
-
 struct base_pin
 {
     uint const slice_num;

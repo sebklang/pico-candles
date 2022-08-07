@@ -1,7 +1,6 @@
 #include <array>
 #include "pico/stdlib.h"
 #include "hardware/pwm.h"
-#include "base_pin.hpp"
 #include "candle_pin.hpp"
 #include "crystal_pin.hpp"
 
@@ -21,6 +20,6 @@ int main()
         for (uint i = 0; i < pins.size(); i++)
             pins[i]->iterate();
 
-        sleep_ms(SLEEP_TIME_MS);
+        sleep_ms(40);
     }
 }

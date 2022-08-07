@@ -12,7 +12,7 @@ void candle_pin::iterate()
     {
     case CANDLE_IDLE:
         power += randr % CANDLE_POWER_DELTAWINDOW
-                - (CANDLE_POWER_DELTAWINDOW * power >> 16); // MAX_POWER was here
+               - (CANDLE_POWER_DELTAWINDOW * power >> 16); // MAX_POWER was here
 
         if (randr < RAND_MAX / 150) // divide by desired avg number of updates before flicker
         {
@@ -41,9 +41,9 @@ void candle_pin::iterate()
 
     case FLICKER_RESETTING:
         if (abs(power - flicker_init_power) > FLICKER_RESETTING_STEPSIZE)
-        power += flicker_reset_direction * FLICKER_RESETTING_STEPSIZE;
-    else
-        state = CANDLE_IDLE;
+            power += flicker_reset_direction * FLICKER_RESETTING_STEPSIZE;
+        else
+            state = CANDLE_IDLE;
         break;
     }
 
