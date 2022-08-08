@@ -26,7 +26,7 @@ struct candle_pin : public base_pin
 
     candle_pin(uint pin_num);
 
-    void iterate();
+    virtual void iterate() override;
 };
 
 #endif

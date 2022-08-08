@@ -21,7 +21,7 @@ struct crystal_pin : public base_pin
 
     crystal_pin(uint pin_num);
 
-    void iterate();
+    virtual void iterate() override;
 };
 
 #endif

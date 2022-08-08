@@ -1,9 +1,0 @@
-Build like so:
-```
-mkdir build
-cd build
-cmake ..
-make
-```
-
-then only `make`
