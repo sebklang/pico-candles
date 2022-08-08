@@ -1,6 +1,4 @@
 #include <array>
-#include "pico/stdlib.h"
-#include "hardware/pwm.h"
 #include "candle_pin.hpp"
 #include "crystal_pin.hpp"
 
